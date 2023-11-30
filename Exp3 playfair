@@ -1,0 +1,139 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+const char encoder[5][5] = {
+    {'A', 'B', 'C', 'D', 'E'},
+    {'F', 'G', 'H', 'I', 'K'},
+    {'L', 'M', 'N', 'O', 'P'},
+    {'Q', 'R', 'S', 'T', 'U'},
+    {'V', 'W', 'X', 'Y', 'Z'}
+};
+
+void inputString(vector<char>& a) {
+    char c;
+    while (1) {
+        c = getchar();
+        if (c >= 97 && c <= 122)
+            c -= 32;
+        if (c == '\n')
+            break;
+        else if (c == ' ')
+            continue;
+        else if (c == 'J')
+            a.push_back('I');
+        a.push_back(c);
+    }
+    return;
+}
+void getPos(char p, int& r, int& c) {
+    if (p < 'J') {
+        r = (p - 65) / 5;
+        c = (p - 65) % 5;
+    }
+    else if (p > 'J') {
+        r = (p - 66) / 5;
+        c = (p - 66) % 5;
+    }
+    return;
+}
+void sameRow(int r, vector<char>& code, int c1, int c2) {
+    code.push_back(encoder[r][(c1 + 4) % 5]);
+    code.push_back(encoder[r][(c2 + 4) % 5]);
+    return;
+}
+
+void sameColumn(int c, vector<char>& code, int r1, int r2) {
+    code.push_back(encoder[(r1 + 4) % 5][c]);
+    code.push_back(encoder[(r2 + 4) % 5][c]);
+    return;
+}
+
+void diffColRow(int r1, int c1, vector<char>& code, int r2, int c2) {
+    code.push_back(encoder[r1][c2]);
+    code.push_back(encoder[r2][c1]);
+    return;
+}
+void encrypt(vector<char> msgx, int len) {
+    vector<char> code;
+    int i = 0, j = 0;
+    int r1, c1, r2, c2;
+    while (i < len) {
+        getPos(msgx[i], r1, c1);
+        i++;
+        getPos(msgx[i], r2, c2);
+        if (r1 == r2) {
+            sameRow(r1, code, c1, c2);
+        }
+        else if (c1 == c2) {
+            sameColumn(c1, code, r1, r2);
+        }
+        else {
+            diffColRow(r1, c1, code, r2, c2);
+        }
+        i++;
+    }
+    cout << "\nCODE: ";
+    for (j = 0; j < code.size(); j++) {
+        if (code[j] == 'X')
+            continue;
+        cout << code[j];
+    }
+    return;
+}
+void decrypt(vector<char> msgx, int len) {
+    vector<char> decoded;
+    int i = 0, j = 0;
+    int r1, c1, r2, c2;
+    while (i < len) {
+        getPos(msgx[i], r1, c1);
+        i++;
+        getPos(msgx[i], r2, c2);
+        if (r1 == r2) {
+            // In decryption, we move left instead of right
+            decoded.push_back(encoder[r1][(c1 + 1) % 5]);
+            decoded.push_back(encoder[r2][(c2 + 1) % 5]);
+        }
+        else if (c1 == c2) {
+            // In decryption, we move up instead of down
+            decoded.push_back(encoder[(r1 + 1) % 5][c1]);
+            decoded.push_back(encoder[(r2 + 1) % 5][c2]);
+        }
+        else {
+            decoded.push_back(encoder[r1][c2]);
+            decoded.push_back(encoder[r2][c1]);
+        }
+        i++;
+    }
+    cout << "\nDecoded Message: ";
+    for (j = 0; j < decoded.size(); j++) {
+        if (decoded[j] == 'X')
+            continue;
+        cout << decoded[j];
+    }
+    return;
+}
+
+int main() {
+    int choice;
+    cout << "Enter 1 for encryption or 2 for decryption: ";
+    cin >> choice;
+    cin.ignore();  // Clear the newline character from the buffer
+
+    vector<char> msg;
+    cout << "Enter the Message: ";
+    inputString(msg);
+    int len = msg.size();
+
+    if (choice == 1) {
+        encrypt(msg, len);
+    }
+    else if (choice == 2) {
+        decrypt(msg, len);
+    }
+    else {
+        cout << "Invalid choice. Please enter 1 for encryption or 2 for decryption.";
+    }
+
+    return 0;
+}
