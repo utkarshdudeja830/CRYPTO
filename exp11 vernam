@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+
+long mod(int a, int b) {
+    return (a % b + b) % b;
+}
+
+string encrypt(string key, string m) {
+    string result = "";
+    
+    // Traverse text
+    for (int i = 0; i < m.length(); i++) {
+        // Check if the character is an uppercase alphabet
+        if (isalpha(m[i]) && isupper(m[i])) {
+            // Apply transformation to each character
+            result += char(mod(int(m[i] - 'A' + key[i % key.length()] - 'A'), 26) + 'A');
+        } else {
+            // If the character is not an uppercase alphabet, keep it unchanged
+            result += m[i];
+        }
+    }
+    
+    // Return the resulting string
+    return result;
+}
+
+string decrypt(string key, string m) {
+    string result = "";
+    
+    // Traverse text
+    for (int i = 0; i < m.length(); i++) {
+        // Check if the character is an uppercase alphabet
+        if (isalpha(m[i]) && isupper(m[i])) {
+            // Apply transformation to each character
+            result += char(mod(int((m[i] - 'A') - (key[i % key.length()] - 'A')), 26) + 'A');
+        } else {
+            // If the character is not an uppercase alphabet, keep it unchanged
+            result += m[i];
+        }
+    }
+    
+    // Return the resulting string
+    return result;
+}
+
+int main() {
+    string m;
+    
+    cout << "Utkarsh Dudeja A2305220145" << endl;
+    cout << " " << endl;
+    cout << "Enter the message" << '\n'; //hello capital
+    getline(cin >> ws, m);  // Read the entire line, including spaces
+    
+    string key;
+    cout << "Enter the key" << '\n';
+    cin >> key; //baxyc
+    
+    string cipher = encrypt(key, m);
+    cout << "Encrypted message: " << cipher << '\n';
+    cout << "Decrypted message: " << decrypt(key, cipher) << '\n';
+    
+    return 0;
+}
