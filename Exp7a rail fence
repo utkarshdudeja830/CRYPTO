@@ -1,84 +1,107 @@
-#include <iostream> #include <vector> using namespace std;
+#include <iostream>
+#include <vector>
 
-string encryptRailFence(string s, int n) { vector<vector<char>> a(n, vector<char>(s.size(), ' ')); int j = 0;
-int flag = 0;
+using namespace std;
 
+string encryptRailFence(const string& s, int n) {
+    vector<vector<char>> a(n, vector<char>(s.size(), ' '));
+    int j = 0;
+    int flag = 0;
 
-for (int i = 0; i < s.size(); i++) { a[j][i] = s[i];
-if (j == n - 1) { flag = 1;
-} else if (j == 0) { flag = 0;
+    for (int i = 0; i < s.size(); i++) {
+        a[j][i] = s[i];
+
+        if (j == n - 1) {
+            flag = 1;
+        } else if (j == 0) {
+            flag = 0;
+        }
+
+        if (flag == 0) {
+            j++;
+        } else {
+            j--;
+        }
+    }
+
+    string encryptedMessage;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < s.size(); j++) {
+            if (a[i][j] != ' ') {
+                encryptedMessage += a[i][j];
+            }
+        }
+    }
+    return encryptedMessage;
 }
 
+string decryptRailFence(const string& s, int n) {
+    vector<vector<char>> a(n, vector<char>(s.size(), ' '));
+    int j = 0;
+    int flag = 0;
+    int temp = 0;
 
-if (flag == 0) { j++;
-} else { j--;
-}
-}
+    for (int i = 0; i < s.size(); i++) {
+        a[j][i] = '0';
 
-string encryptedMessage; for (int i = 0; i < n; i++) {
-for (int j = 0; j < s.size(); j++) { if (a[i][j] != ' ') {
-encryptedMessage += a[i][j];
- 
-}
-}
-}
-return encryptedMessage;
-}
+        if (j == n - 1) {
+            flag = 1;
+        } else if (j == 0) {
+            flag = 0;
+        }
 
+        if (flag == 0) {
+            j++;
+        } else {
+            j--;
+        }
+    }
 
-string decryptRailFence(string s, int n) { vector<vector<char>> a(n, vector<char>(s.size(), ' ')); int j = 0;
-int flag = 0; int temp = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < s.size(); j++) {
+            if (a[i][j] == '0') {
+                a[i][j] = s[temp++];
+            }
+        }
+    }
 
-for (int i = 0; i < s.size(); i++) { a[j][i] = '0';
-if (j == n - 1) { flag = 1;
-} else if (j == 0) { flag = 0;
-}
+    flag = 0;
+    j = 0;
+    string decryptedMessage;
 
+    for (int i = 0; i < s.size(); i++) {
+        decryptedMessage += a[j][i];
 
-if (flag == 0) { j++;
-} else { j--;
-}
-}
+        if (j == n - 1) {
+            flag = 1;
+        } else if (j == 0) {
+            flag = 0;
+        }
 
-
-for (int i = 0; i < n; i++) {
-for (int j = 0; j < s.size(); j++) { if (a[i][j] == '0') {
-a[i][j] = s[temp++];
- 
-}
-}
-}
-
-flag = 0;
-j = 0;
-string decryptedMessage;
-
-
-for (int i = 0; i < s.size(); i++) { decryptedMessage += a[j][i]; if (j == n - 1) {
-flag = 1;
-} else if (j == 0) { flag = 0;
-}
-
-
-if (flag == 0) { j++;
-} else { j--;
-}
-}
-return decryptedMessage;
+        if (flag == 0) {
+            j++;
+        } else {
+            j--;
+        }
+    }
+    return decryptedMessage;
 }
 
+int main() {
+    int n;
+    string message;
 
-int main() { int n;
-string message;
-cout<<"Utkarsh Dudeja A2305220145"<<endl; cout<<" "<<endl;
-cout << "Enter the message: ";
- 
-cin >> message;
-cout << "Enter key: "; cin >> n;
+    cout << "Enter the message: ";
+    cin >> message;
 
-string encryptedMessage = encryptRailFence(message, n); cout << "Encrypted message: " << encryptedMessage << endl;
+    cout << "Enter key: ";
+    cin >> n;
 
-string decryptedMessage = decryptRailFence(encryptedMessage, n); cout << "Decrypted message: " << decryptedMessage << endl;
+    string encryptedMessage = encryptRailFence(message, n);
+    cout << "Encrypted message: " << encryptedMessage << endl;
 
-return 0;
+    string decryptedMessage = decryptRailFence(encryptedMessage, n);
+    cout << "Decrypted message: " << decryptedMessage << endl;
+
+    return 0;
 }
