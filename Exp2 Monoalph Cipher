@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+
+string encrypt(string msg, string alphabet, string substitution) {
+    string ciphertext;
+    for (int i = 0; i < msg.size(); i++) {
+        char ch = msg[i];
+        int index = alphabet.find(ch);
+        if (index != string::npos) {
+            ciphertext.push_back(substitution[index]);
+        } else {
+            // If the character is not in the alphabet (e.g., space or punctuation), add it unchanged.
+            ciphertext.push_back(ch);
+        }
+    }
+    return ciphertext;
+}
+
+string decrypt(string msg, string alphabet, string substitution) {
+    string plaintext;
+    for (int i = 0; i < msg.size(); i++) {
+        char ch = msg[i];
+        int index = substitution.find(ch);
+        if (index != string::npos) {
+            plaintext.push_back(alphabet[index]);
+        } else {
+            // If the character is not in the substitution (e.g., space or punctuation), add it unchanged.
+            plaintext.push_back(ch);
+        }
+    }
+    return plaintext;
+}
+
+int main() {
+    string alphabet = "abcdefghijklmnopqrstuvwxyz";
+    string substitution = "qwertyuiopasdfghjklzxcvbnm";
+    string msg = "absdhj";
+    
+    string cipher = encrypt(msg, alphabet, substitution);
+    cout << "Encrypted Cipher Text: " << cipher << endl;
+    
+    string plain = decrypt(cipher, alphabet, substitution);
+    cout << "Decrypted Plain Text: " << plain << endl;
+}
