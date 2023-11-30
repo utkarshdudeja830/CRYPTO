@@ -1,0 +1,26 @@
+#include<iostream> #include<string> using namespace std;
+
+int main() {
+string msg, key, k, ct, pt; int lenm, lenk, i, j = 0;
+
+cout<<"Utkarsh Dudeja A2305220145"<<endl; cout<<" "<<endl;
+cout << "Enter Message : "; getline(cin, msg);
+cout << "Enter Key : "; getline(cin, key);
+
+lenm = msg.length(); lenk = key.length();
+for (i = 0; i < lenm; i++, j++) { if (j == lenk) {
+j = 0;
+}
+k += key[j];
+}
+ 
+for (i = 0; i < lenm; i++) {
+ct += char(((msg[i] + k[i]) % 26) + 'A');
+}
+for (i = 0; i < lenm; i++) {
+pt += char((((ct[i] - k[i]) + 26) % 26) + 'A');
+}
+cout << "\nEncrypted Message : " << ct << endl; cout << "Decrypted Message : " << pt << endl;
+
+return 0;
+}
