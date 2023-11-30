@@ -1,0 +1,196 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 TimesNewRomanPSMT;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\li133\partightenfactor0
+
+\f0\fs37\fsmilli18667 \cf2 \expnd0\expndtw0\kerning0
+#include <iostream>
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 using namespace std;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 void encryptMessage(char message[], int key) \{
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 for (int i = 0; message[i] != '\\0'; ++i) \{
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 char ch = message[i];
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 if (ch >= 'a' && ch <= 'z') \{
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 ch = ch + key;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 if (ch > 'z') \{
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 ch = ch - 'z' + 'a' - 1;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 \}
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 message[i] = ch;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 \} else if (ch >= 'A' && ch <= 'Z') \{
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 ch = ch + key;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 if (ch > 'Z') \{
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 ch = ch - 'Z' + 'A' - 1;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 \}
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 message[i] = ch;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 \}
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 \}
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \}
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 void decryptMessage(char message[], int key) \{
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 for (int i = 0; message[i] != '\\0'; ++i) \{
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 char ch = message[i];
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 if (ch >= 'a' && ch <= 'z') \{
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 ch = ch - key;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 if (ch < 'a') \{
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 ch = ch + 'z' - 'a' + 1;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 \}
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 message[i] = ch;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 \} else if (ch >= 'A' && ch <= 'Z') \{
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 ch = ch - key;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 if (ch < 'A') \{
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 ch = ch + 'Z' - 'A' + 1;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 \}
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 message[i] = ch;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0\'a0\'a0\'a0\'a0 \}
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 \}
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \}
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 int main() \{
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 char message[100], ch;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 int key;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 cout << "Enter a message: ";
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 cin.getline(message, 100);
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 cout << "Enter key: ";
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 cin >> key;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 // Encryption
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 encryptMessage(message, key);
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 cout << "Encrypted message: " << message << endl;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 // Decryption
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 decryptMessage(message, key);
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 cout << "Decrypted message: " << message << endl;
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0\'a0\'a0 return 0;
+\f1\fs29\fsmilli14667 \
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs37\fsmilli18667 \cf2 \}
+\f1\fs29\fsmilli14667 \
+
+\f0\fs37\fsmilli18667 \'a0
+\f1\fs29\fsmilli14667 \
+}
